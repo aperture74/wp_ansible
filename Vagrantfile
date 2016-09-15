@@ -30,7 +30,7 @@ Vagrant.configure("2") do |config|
       end
   end
 
-  # create OpenNebula frontend
+  # create db node
 
     config.vm.define :db do |db_config|
       db_config.vm.box = "centos/7"
