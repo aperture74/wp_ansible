@@ -1,0 +1,4 @@
+---
+# defaults file for wordpress
+remote_server: dummy_server
+remote_location: dummy_location

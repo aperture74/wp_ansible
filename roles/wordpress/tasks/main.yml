@@ -1,0 +1,21 @@
+---
+# tasks file for wordpress
+- name: Install some required files
+  yum: name={{item}} state=present
+  with_items:
+   - unzip
+
+- name: Download WildFly from jboss.org
+  get_url: url=https://wordpress.org/latest.tar.gz dest=/tmp/latest.tar.gz
+
+- name: Extract archive
+  command: chdir=/tmp tar -xvf /tmp/latest.tar.gz
+
+# - name: mode extracted files to nginx html location
+#   command: chdir=/tmp mv wordpress /usr/share/nginx/html/
+
+- name: Make sure wordpress is owned by root user  
+  file: path=/usr/share/nginx/html/wordpress/ state=directory owner=root group=root recurse=yes
+
+- name: Create a cron task to perform a backup at a given remote server through scp
+  cron: name="scp remotely" minute="0" hour="5" job="scp -r /usr/share/nginx/html/wordpress/wp-content root@{{ remote_server }}:/{{ remote_location }}"
