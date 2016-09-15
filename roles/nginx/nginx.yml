@@ -1,0 +1,4 @@
+    - hosts: '{{ hosts }}'
+      remote_user: root
+      roles:
+        - { role: nginx }
