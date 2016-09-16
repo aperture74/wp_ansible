@@ -7,7 +7,7 @@
 * The "app" machine is used to install Nginx and wordpress.
 * The "db" machine is used to install the MySQL database 
 
-* When all the machines are up and running ssh at the master node by issuing "vagrant ssh master", switch to the directory that contains the ansible roles and run ** ansible-playbook site.yml **
+* When all the machines are up and running ssh at the master node by issuing **vagrant ssh maste**", switch to the directory that contains the ansible roles and run **ansible-playbook site.yml**
 
 * For the above command to be executed properly make sure that Ansible can succesffuly SSH to all the required nodes (app, db)
 
