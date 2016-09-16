@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
       ansible_config.vm.box = "ubuntu/xenial64"
       ansible_config.vm.hostname = "ansible"
       ansible_config.vm.network :private_network, ip: "10.0.15.10"
-      ansible_config.vm.synced_folder "PATH_TO_ANSIBLE_PLAYBOOK", "/home/vagrant"
+      ansible_config.vm.synced_folder "~/Personal/infra/devops/", "/home/vagrant"
       ansible_config.vm.provider "virtualbox" do |vb|
         vb.name = "ansible"
         vb.memory = "512"
@@ -20,17 +20,17 @@ Vagrant.configure("2") do |config|
 
   # create app node
 
-  config.vm.define :app do |app_config|
-      app_config.vm.box = "centos/7"
-      app_config.vm.hostname = "app"
-      app_config.vm.network :private_network, ip: "10.0.15.11"
-      app_config.vm.provider "virtualbox" do |vb|
-        vb.name = "app"
+  config.vm.define :appl do |appl_config|
+      appl_config.vm.box = "centos/7"
+      appl_config.vm.hostname = "appl"
+      appl_config.vm.network :private_network, ip: "10.0.15.11"
+      appl_config.vm.provider "virtualbox" do |vb|
+        vb.name = "appl"
         vb.memory = "1024"
       end
   end
 
-  # create db node
+  # create OpenNebula frontend
 
     config.vm.define :db do |db_config|
       db_config.vm.box = "centos/7"

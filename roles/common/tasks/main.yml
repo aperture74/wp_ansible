@@ -1,0 +1,21 @@
+- name: Ensure firewalld is stopped.
+  service:
+    name: "{{ item }}"
+    enabled: no
+    state: stopped
+  with_items:
+    - firewalld
+
+- name: Ensure NTP (for time synchronization) is installed.
+  yum:
+    name: ntp
+    state: present
+
+- name: Ensure NTP is running.
+  service:
+    name: ntpd
+    state: started
+    enabled: yes
+
+- name: Ensure selinux is disabled.
+  selinux: state=disabled

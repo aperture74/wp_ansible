@@ -4,18 +4,36 @@
   yum: name={{item}} state=present
   with_items:
    - unzip
+   - php
+   - php-fpm
+   - php-mysql
+   - php-gd
 
-- name: Download WildFly from jboss.org
+- name: Download wordpress
   get_url: url=https://wordpress.org/latest.tar.gz dest=/tmp/latest.tar.gz
 
 - name: Extract archive
   command: chdir=/tmp tar -xvf /tmp/latest.tar.gz
 
-# - name: mode extracted files to nginx html location
-#   command: chdir=/tmp mv wordpress /usr/share/nginx/html/
+- name: mode extracted files to nginx html location
+  command: chdir=/tmp mv wordpress /usr/share/nginx/html/
 
 - name: Make sure wordpress is owned by root user  
   file: path=/usr/share/nginx/html/wordpress/ state=directory owner=root group=root recurse=yes
+
+- name: Configure php.ini
+  lineinfile: dest=/etc/php.ini state=present line="cgi.fix_pathinfo=1"
+
+- name: Remove default nginx template
+  file: path=/etc/nginx/conf.d/default.conf state=absent
+
+- name: create wordpress template for nginx
+  template: src=wordpress.j2 dest=/etc/nginx/conf.d/wordpress.conf owner=root group=root
+  notify: restart nginx
+
+- name: configure php-fpm.conf
+  template: src=php-fpm.j2 dest=/etc/php-fpm.d/www.conf owner=root group=root
+  notify: restart php-fpm
 
 - name: Create a cron task to perform a backup at a given remote server through scp
   cron: name="scp remotely" minute="0" hour="5" job="scp -r /usr/share/nginx/html/wordpress/wp-content root@{{ remote_server }}:/{{ remote_location }}"

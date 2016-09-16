@@ -3,6 +3,7 @@
   gather_facts: yes
   remote_user: root
   roles:
+    - common
     - mysql
     
 - hosts: app
@@ -10,5 +11,6 @@
   gather_facts: yes
   remote_user: root
   roles:
+    - common
     - nginx
     - wordpress
