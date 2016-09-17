@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
       ansible_config.vm.box = "ubuntu/xenial64"
       ansible_config.vm.hostname = "ansible"
       ansible_config.vm.network :private_network, ip: "10.0.15.10"
-      ansible_config.vm.synced_folder "~/Personal/infra/devops/", "/home/vagrant"
+      ansible_config.vm.synced_folder "PATH_TO_ANSIBLE_PLAYBOOK", "/home/vagrant"
       ansible_config.vm.provider "virtualbox" do |vb|
         vb.name = "ansible"
         vb.memory = "512"
