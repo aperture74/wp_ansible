@@ -36,4 +36,4 @@
   notify: restart php-fpm
 
 - name: Create a cron task to perform a backup at a given remote server through scp
-  cron: name="scp remotely" minute="0" hour="5" job="scp -r /usr/share/nginx/html/wordpress/wp-content root@{{ remote_server }}:/{{ remote_location }}"
+  cron: name="scp remotely" minute="0" hour="5" job="{{ tar_command }} {{ path }} {{ scp_command }} root@{{ remote_server }}:/{{ remote_location }}"

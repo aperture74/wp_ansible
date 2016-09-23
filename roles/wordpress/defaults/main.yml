@@ -1,4 +1,7 @@
 ---
 # defaults file for wordpress
+path: /usr/share/nginx/html/wordpress/wp-content/
 remote_server: dummy_server
 remote_location: dummy_location
+scp_command: '&& scp *.tar.gz'
+tar_command: tar -zcvf "$(date '+%y-%m-%d').tar.gz"
